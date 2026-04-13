@@ -215,3 +215,18 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+# settings.py faylining eng oxiriga qo'shing
+import sys
+if os.environ.get('CREATE_SUPERUSER') == 'True':
+    try:
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser(
+                username='admin',
+                email='admin@example.com',
+                password='Admin123456!'
+            )
+            print("✅ Superuser created successfully!")
+    except Exception as e:
+        print(f"⚠️ Superuser creation failed: {e}")
